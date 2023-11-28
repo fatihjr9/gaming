@@ -13,6 +13,9 @@ class midtrans extends Model
         'trx_id',
         'user_id',
         'user_zone',
+        'packet_name',
+        'total_price',
+        'status',
         'snap_token',
     ];
 }

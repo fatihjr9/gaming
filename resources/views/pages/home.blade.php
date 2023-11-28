@@ -22,7 +22,7 @@
                               <div class="p-2 bg-gray-50 dark:bg-gray-700 w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <div class="flex flex-col">
                                     <div class="flex flex-row items-center gap-x-2 w-full text-sm font-semibold text-gray-900 dark:text-gray-300">
-                                        <input type="radio" id="{{ $feature['code'] }}" name="selectedCategory" value="{{ $feature['code'] }}" class="mr-2">
+                                        <input type="radio" id="{{ $feature['code'] }}" name="selectedCategory" value="{{ $feature['code']}}, {{ $feature['price']['basic'] }}" class="mr-2">
                                         <label for="{{ $feature['code'] }}"class="truncate">{{ $feature['name'] }}</label>
                                     </div>
                                     <label class="w-full text-sm font-medium text-gray-900 dark:text-gray-300">Rp {{ $feature['price']['basic'] }}</label>
@@ -56,37 +56,4 @@
             </div>
       </form>
     </div>
-  <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
-  <script>
-    document.getElementById('confirm-button').addEventListener('click', function () {
-        var selectedCategory = document.querySelector('input[name="selectedCategory"]:checked').value;
-        var price = document.querySelector('input[name="price"]').value;
-
-        axios.post('/', {
-            selectedCategory: selectedCategory,
-            price: price,
-        })
-        .then(function (response) {
-            var token = response.data.token;
-            snap.pay(token, {
-                // Optional
-                onSuccess: function (result) {
-                    location.reload();
-                },
-                // Optional
-                onPending: function (result) {
-                    location.reload();
-                },
-                // Optional
-                onError: function (result) {
-                    location.reload();
-                }
-            });
-        })
-        .catch(function (error) {
-            console.error(error);
-            location.reload();
-        });
-    });
-  </script>
   @endsection

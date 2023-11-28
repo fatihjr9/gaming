@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Str;
+
+use App\Models\midtrans;
 
 use Midtrans\Config as Config;
 use Midtrans\Snap;
@@ -12,10 +15,10 @@ class Gamefeature extends Controller
 {
     public function __construct()
     {
-        \Midtrans\Config::$serverKey    = env('MIDTRANS_SERVER_KEY');
-        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
-        \Midtrans\Config::$isSanitized  = env('MIDTRANS_IS_SANITIZED');
-        \Midtrans\Config::$is3ds        = env('MIDTRANS_IS_3DS');
+        \Midtrans\Config::$serverKey    = config('services.midtrans.serverKey');
+        \Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
+        \Midtrans\Config::$isSanitized  = config('services.midtrans.isSanitized');
+        \Midtrans\Config::$is3ds        = config('services.midtrans.is3ds');
     }
 
     // Fetch API
@@ -57,39 +60,71 @@ class Gamefeature extends Controller
     public function getGameService()
     {
         $response = $this->fetchGetAPI();
-
         if ($response->successful()) {
             $data = $response->json();
-            // @dd($data);
+            // @dd($data);  
             return view('pages.home', compact('data'));
         } else {
             $error = $response->json();
             dd($error);
         }
     }
+
     public function orderGameService(Request $request)
     {   
-        # pembayaran berhasil, baru masuk ke vipayment
-        $midtrans = \App\Models\midtrans::create([
-            'trx_id'   => 'TopupML-' . mt_rand(100000, 999999),
-            'user_id' => $request->input('idUser'),
-            'user_zone' => $request->input('zone'),
+        /**
+         * algorithm generate no invoice
+         */
+        $length = 10;
+        $random = '';
+        for ($i = 0; $i < $length; $i++) {
+            $random .= rand(0, 1) ? rand(0, 9) : chr(rand(ord('a'), ord('z')));
+        }
+
+        //generate no invoice
+        $no_invoice = 'TRX-'.Str::upper($random);
+
+        // pecah data selectedCategory after coma jadikan hanya 1 data tanpa array
+        $selectedCategory = explode(',', $request->selectedCategory);
+        
+        // sent to database
+        $invoice = midtrans::create([
+            'trx_id' => $no_invoice,
+            'user_id' => $request->idUser,
+            'user_zone' => $request->zone,
+            'packet_name' => $selectedCategory[0],
+            'total_price' => $selectedCategory[1],
         ]);
 
-        # vipayment proses
-        // $selectedCategory = $request->input('selectedCategory');
-        // $dataNo = $request->input('dataNo');
-        // $dataZone = $request->input('dataZone');
+        // ambil dari database status unpaid dari trx_id
+        $statusSearch = midtrans::where('trx_id', $no_invoice)->first();
+        $status = $statusSearch->status;
         
-        $response = $this->fetchGetAPI();
+        // midtrans integrate
+        $payload = [
+            'transaction_details' => [
+                'order_id' => $no_invoice,
+                'gross_amount' => $selectedCategory[1],
+            ],
+        ];
+
+        # vipayment proses
+        $selectedCategory = $invoice->packet_name;
+        $dataNo = $invoice->idUser;
+        $dataZone = $invoice->zone;
+
+        $response = $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
 
         if ($response->successful()) {
             $data = $response->json();
             return view('pages.home', compact('data'));
         } else {
             $error = $response->json();
-            dd($error);
         }
+        
+        $snapToken = \Midtrans\Snap::getSnapToken($payload);
+        return view ('pages.order', compact('snapToken', 'invoice', 'status'));
+        
     }
 
 }

@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('trx_id');
             $table->string('user_id');
             $table->string('user_zone');
+            $table->string('packet_name');
+            $table->bigInteger('total_price');
+            $table->enum('status', ['Paid','Unpaid'])->default('Unpaid');
             $table->string('snap_token')->nullable();
             $table->timestamps();
         });
