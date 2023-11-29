@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Gamefeature::class, 'getGameService']);
+Route::match(['get', 'post'], '/track-order', [Gamefeature::class, 'trackOrderGameService'])->name('lacak-pesanan');
 Route::post('/', [Gamefeature::class, 'orderGameService'])->name('place-order');
