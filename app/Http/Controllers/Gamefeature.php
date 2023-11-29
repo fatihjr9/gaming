@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Str;
 
 use App\Models\midtrans;
 
-use Midtrans\Config as Config;
-use Midtrans\Snap;
 class Gamefeature extends Controller
 {
     public function __construct()
@@ -24,8 +21,8 @@ class Gamefeature extends Controller
     // Fetch API
     private function fetchGetAPI() {
         $apiUrl = 'https://vip-reseller.co.id/api/game-feature';
-        $apiKey = 'kS4zvaUVFTsOd649a350qZvAWrPF4EgrqyVoeDa7VUgNldo9wnwNwxUqLdYA9ZdH';
-        $apiSign = 'fda5edb12e9940e723d43eecbc9227b8';
+        $apiKey = 'RPPTa5cvN6uJFSiOZNuOrc1B2EWWujWuLuiygpZXsGhubm14k9puwdzHuRctP7Cr';
+        $apiSign = '1469d60a00d32036055f77ad8bff4423';
         $type = 'services';
         $filterType = 'game';
         $filterValue = 'Mobile Legends B';
@@ -42,8 +39,8 @@ class Gamefeature extends Controller
     private function fetchOrderAPI($selectedCategory, $dataNo, $dataZone)
     {
         $apiUrl = 'https://vip-reseller.co.id/api/game-feature';
-        $apiKey = 'kS4zvaUVFTsOd649a350qZvAWrPF4EgrqyVoeDa7VUgNldo9wnwNwxUqLdYA9ZdH';
-        $apiSign = 'fda5edb12e9940e723d43eecbc9227b8';
+        $apiKey = 'RPPTa5cvN6uJFSiOZNuOrc1B2EWWujWuLuiygpZXsGhubm14k9puwdzHuRctP7Cr';
+        $apiSign = '1469d60a00d32036055f77ad8bff4423';
         $type = 'order';
     
         return Http::asForm()->post($apiUrl, [
@@ -110,21 +107,13 @@ class Gamefeature extends Controller
 
         # vipayment proses
         $selectedCategory = $invoice->packet_name;
-        $dataNo = $invoice->idUser;
-        $dataZone = $invoice->zone;
+        $dataNo = $invoice->user_id;
+        $dataZone = $invoice->user_zone;
 
-        $response = $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
-
-        if ($response->successful()) {
-            $data = $response->json();
-            return view('pages.home', compact('data'));
-        } else {
-            $error = $response->json();
-        }
+        $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
         
         $snapToken = \Midtrans\Snap::getSnapToken($payload);
         return view ('pages.order', compact('snapToken', 'invoice', 'status'));
-        
     }
 
 }
