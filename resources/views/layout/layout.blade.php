@@ -18,20 +18,28 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <section>
-        <img class="w-full h-[30rem] bg-center bg-blend-normal object-cover bg-no-repeat z-0 relative" src="{{ asset('/peakpx.jpg') }}" alt="">
-        <div class="w-full h-[30rem] bg-gradient-to-b from-black/20 to-black absolute top-0 left-0"></div>
-        <div class="flex flex-col -translate-y-72 text-center gap-y-6">
-            <h5 class="text-6xl md:text-7xl uppercase font-bold tracking-tight text-white">buktikan kalau skin <br class="hidden md:block"> anda level dewa</h5>
-            <a href="#topup" class="px-6 py-3 border rounded-full w-fit mx-auto border-white text-xl text-white">Beli Sekarang</a>
-        </div>
-    </section>
     <header class="absolute top-0 left-0 w-full">
         @include('component.navbar')
     </header>
-    <main class="px-4 md:px-16 mb-8" id="topup">
+    <section class="flex flex-row justify-between items-center z-0">
+        <div class="flex flex-col px-4 md:px-16 z-50 relative md:mt-0 text-center md:text-left w-full md:w-96 mt-40">
+            <h5 class="mb-2 text-5xl uppercase font-bold tracking-tight text-white">upgrade akunmu, kalahkan musuhmu</h5>
+            <p class="mb-4 text-lg text-white md:text-gray-600">Discover some packages diamond with reasonable price</p>
+            <a href="#topup" class="hidden md:block px-6 py-3 border rounded-full w-fit border-white text-xl text-white">Beli Sekarang</a>
+            <a href="#topup" class="block md:hidden mx-auto px-6 py-3 border rounded-full w-fit border-white text-xl text-white">Beli Sekarang</a>
+        </div>
+        <div class="absolute inset-0 z-0 md:relative w-full pb-[18rem] md:pb-[36rem]">
+            <video class="absolute w-full h-full object-cover" autoplay loop muted playsinline>
+              <source src="{{ asset('/mlbb.mp4') }}" type="video/mp4">
+            </video>
+            <div class="w-full h-full bg-gradient-to-b from-black/10 to-black absolute inset-0"></div>
+            <div class="w-full h-full bg-gradient-to-l from-black/10 to-black absolute inset-0"></div>
+        </div>        
+    </section>
+    <main class="z-50 relative my-6" id="topup">
         @yield('content')
     </main>
+    <p class="text-sm text-slate-100 text-center my-4">Topup Mobile Legend 2023 - All rights reserved</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
 </body>
 </html>

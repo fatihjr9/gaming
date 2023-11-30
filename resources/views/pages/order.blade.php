@@ -22,10 +22,15 @@
     @vite('resources/css/app.css')
   </head>
   <body>
-    <img class="w-full h-[30rem] bg-center bg-blend-normal object-cover bg-no-repeat z-0 relative" src="{{ asset('/peakpx.jpg') }}" alt="">
-    <div class="w-full h-[30rem] bg-gradient-to-b from-black/20 to-black absolute top-0 left-0"></div>
+    <div class="absolute inset-0 z-0 md:relative w-full pb-[18rem] md:pb-[36rem]">
+      <video class="absolute w-full h-full object-cover" autoplay loop muted playsinline>
+        <source src="{{ asset('/mlbb.mp4') }}" type="video/mp4">
+      </video>
+      <div class="w-full h-full bg-gradient-to-b from-black/10 to-black absolute inset-0"></div>
+      <div class="w-full h-full bg-gradient-to-l from-black/10 to-black absolute inset-0"></div>
+    </div>   
     <div class="w-96 absolute h-fit inset-0 p-4 bg-gray-900 ring-1 ring-gray-600 mx-auto mt-20 text-white rounded-md">
-      <h1 class="text-center mb-6"> Detail Topup Diamond</h1>
+      <h1 class="text-center mb-6 text-2xl"> Detail Topup Diamond</h1>
       <div class="space-y-2">
         <div class="flex items-center justify-between">
           <h5>Nomer Invoice :</h5>
@@ -40,7 +45,10 @@
           <p>Rp {{ $invoice->total_price }}</p>
         </div>
       </div>
-      <button class="w-full py-2 bg-orange-400 mt-4 rounded-md" id="pay-button">Bayar sekarang</button>
+      <div class="flex flex-col space-y-2">
+        <button class="w-full py-2 bg-orange-400 mt-4 rounded-md" id="pay-button">Bayar sekarang</button>
+        <a href="/" class="w-full py-2 bg-gray-800 mt-4 rounded-md text-center">Batalkan</a>
+      </div>
     </div>
     <p class="text-sm text-white text-center absolute bottom-5 inset-x-0">Topup Gaming 2023 - All right reserved</p>
     <script type="text/javascript">

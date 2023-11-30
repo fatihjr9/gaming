@@ -36,21 +36,6 @@ class Gamefeature extends Controller
         ]);
     }
 
-    private function trackOrderAPI($trxid)
-    {
-        $apiUrl = 'https://vip-reseller.co.id/api/game-feature';
-        $apiKey = 'RPPTa5cvN6uJFSiOZNuOrc1B2EWWujWuLuiygpZXsGhubm14k9puwdzHuRctP7Cr';
-        $apiSign = '1469d60a00d32036055f77ad8bff4423';
-        $type = 'status';
-
-        return Http::asForm()->post($apiUrl, [
-            'key' => $apiKey,
-            'sign' => $apiSign,
-            'type' => $type,
-            'trxid' => $trxid,
-        ]);
-    }
-
     private function fetchOrderAPI($selectedCategory, $dataNo, $dataZone)
     {
         $apiUrl = 'https://vip-reseller.co.id/api/game-feature';
@@ -80,21 +65,6 @@ class Gamefeature extends Controller
             $error = $response->json();
             dd($error);
         }
-    }
-
-    public function trackOrderGameService(Request $request)
-    {
-        $trxid = $request->query('trxid');
-        $response = $this->trackOrderAPI($trxid);
-
-        if ($response->successful()) {
-            $responseData = $response->json();
-            return view('pages.track-order', ['responseData' => $responseData]);
-        } else {
-            $errorResponse = $response->json();
-            return response()->json(['error' => $errorResponse], $response->status());
-        }
-        return view('pages.track-order');
     }
 
     public function orderGameService(Request $request)
