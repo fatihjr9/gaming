@@ -106,9 +106,9 @@ class Gamefeature extends Controller
         ];
 
         # vipayment proses
-        $selectedCategory = $invoice->packet_name;
-        $dataNo = $invoice->user_id;
-        $dataZone = $invoice->user_zone;
+        // $selectedCategory = $invoice->packet_name;
+        // $dataNo = $invoice->user_id;
+        // $dataZone = $invoice->user_zone;
 
         $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
         
