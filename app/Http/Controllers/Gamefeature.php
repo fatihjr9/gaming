@@ -110,7 +110,7 @@ class Gamefeature extends Controller
         // $dataNo = $invoice->user_id;
         // $dataZone = $invoice->user_zone;
 
-        $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
+        // $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
         
         $snapToken = \Midtrans\Snap::getSnapToken($payload);
         return view ('pages.order', compact('snapToken', 'invoice', 'status'));
