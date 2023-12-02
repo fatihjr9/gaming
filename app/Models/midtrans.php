@@ -9,6 +9,8 @@ class midtrans extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'trx_id';
+
     protected $fillable = [
         'trx_id',
         'user_id',

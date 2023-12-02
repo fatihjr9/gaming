@@ -25,8 +25,8 @@
         <div class="flex flex-col px-4 md:px-16 z-50 relative md:mt-0 text-center md:text-left w-full md:w-96 mt-40">
             <h5 class="mb-2 text-5xl uppercase font-bold tracking-tight text-white">upgrade akunmu, kalahkan musuhmu</h5>
             <p class="mb-4 text-lg text-white md:text-gray-600">Discover some packages diamond with reasonable price</p>
-            <a href="#topup" class="hidden md:block px-6 py-3 border rounded-full w-fit border-white text-xl text-white">Beli Sekarang</a>
-            <a href="#topup" class="block md:hidden mx-auto px-6 py-3 border rounded-full w-fit border-white text-xl text-white">Beli Sekarang</a>
+            <a href="#topup" class="hidden md:block px-6 py-3 border rounded-md w-fit border-white text-xl text-white hover:bg-indigo-600 hover:border-indigo-600 transition-all duration-300">Beli Sekarang</a>
+            <a href="#topup" class="block md:hidden mx-auto px-6 py-3 border rounded-md w-fit border-white text-xl text-white hover:bg-indigo-600 hover:border-indigo-600 transition-all duration-300">Beli Sekarang</a>
         </div>
         <div class="absolute inset-0 z-0 md:relative w-full pb-[18rem] md:pb-[36rem]">
             <video class="absolute w-full h-full object-cover" autoplay loop muted playsinline>

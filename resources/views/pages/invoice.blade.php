@@ -29,43 +29,31 @@
       <div class="w-full h-full bg-gradient-to-b from-black/10 to-black absolute inset-0"></div>
       <div class="w-full h-full bg-gradient-to-l from-black/10 to-black absolute inset-0"></div>
     </div>   
-    <div class="w-96 absolute h-fit inset-0 p-4 bg-gray-900 ring-1 ring-gray-600 mx-auto mt-20 text-white rounded-md">
-      <h1 class="text-center mb-6 text-2xl"> Detail Topup Diamond</h1>
-      <div class="space-y-2">
+    <div class="w-96 absolute gap-y-4 h-fit inset-0 p-4 bg-gray-900 ring-1 ring-gray-600 mx-auto mt-20 text-white rounded-md">
+      <h1 class="text-center mb-6 text-2xl">Invoice Diamond ML</h1>
+      <div class="space-y-2 mb-4">
         <div class="flex items-center justify-between">
-          <h5>Nomer Invoice :</h5>
-          <p>{{ $no_invoice }}</p>
+          <h5>Transaction ID :</h5>
+          <p>{{ $trx_id}}</p>
         </div>
         <div class="flex items-center justify-between">
-          <h5>Total Bayar :</h5>
-          <p>Rp {{ $invoice->total_price }}</p>
+          <h5>ID User :</h5>
+          <p> {{ $invoice-> user_id}}</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <h5>Zone :</h5>
+          <p> {{ $invoice-> user_zone}}</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <h5>Status :</h5>
+          <p>{{ $invoice->status }}</p>
         </div>
       </div>
-      <div class="flex flex-col space-y-2">
-        <button class="w-full py-2 bg-indigo-600 mt-4 rounded-md" id="pay-button">Bayar sekarang</button>
-        <a href="/" class="w-full py-2 bg-gray-800 mt-4 rounded-md text-center">Batalkan</a>
+      <div class="w-full py-2 bg-gray-800 rounded-md text-center">
+        <a href="/">Kembali ke halaman utama</a>
       </div>
     </div>
     <p class="text-sm text-white text-center absolute bottom-5 inset-x-0">Topup Gaming 2023 - All right reserved</p>
-    <script type="text/javascript">
-      var payButton = document.getElementById('pay-button');
-      payButton.addEventListener('click', function () {
-        window.snap.pay('{{$snapToken   }}', {
-          onSuccess: function(result){
-            window.location.href='/invoice/{{$no_invoice}}'
-          },
-          onPending: function(result){
-            alert("wating your payment!"); console.log(result);
-          },
-          onError: function(result){
-            alert("payment failed!"); console.log(result);
-          },
-          onClose: function(){
-            alert('Are you sure to cancel the payment?');
-          }
-        })
-      });
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
   </body>
 </html>

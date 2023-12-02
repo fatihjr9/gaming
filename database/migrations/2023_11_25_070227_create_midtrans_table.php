@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('midtrans', function (Blueprint $table) {
-            $table->id();
-            $table->string('trx_id');
+            $table->string('trx_id')->primary();
             $table->string('user_id');
             $table->string('user_zone');
             $table->string('packet_name');

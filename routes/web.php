@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Gamefeature::class, 'getGameService']);
+Route::get('/invoice/{id}', [Gamefeature::class, 'invoiceOrder'])->name('invoice-page');
 Route::post('/', [Gamefeature::class, 'orderGameService'])->name('place-order');

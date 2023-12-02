@@ -93,10 +93,6 @@ class Gamefeature extends Controller
             'total_price' => $selectedCategory[1],
         ]);
 
-        // ambil dari database status unpaid dari trx_id
-        $statusSearch = midtrans::where('trx_id', $no_invoice)->first();
-        $status = $statusSearch->status;
-        
         // midtrans integrate
         $payload = [
             'transaction_details' => [
@@ -104,16 +100,35 @@ class Gamefeature extends Controller
                 'gross_amount' => $selectedCategory[1],
             ],
         ];
-
-        # vipayment proses
-        // $selectedCategory = $invoice->packet_name;
-        // $dataNo = $invoice->user_id;
-        // $dataZone = $invoice->user_zone;
-
-        // $this->fetchOrderAPI($selectedCategory, $dataNo, $dataZone);
         
         $snapToken = \Midtrans\Snap::getSnapToken($payload);
-        return view ('pages.order', compact('snapToken', 'invoice', 'status'));
+        return view ('pages.order', compact('snapToken', 'invoice', 'no_invoice'));
     }
+    public function midtransCallback(Request $request)
+    {
 
+        $notif = new \Midtrans\Notification();
+
+        $serverKey = config('services.midtrans.serverKey');
+        $hashed = hash("sha512", $notif->order_id . $notif->status_code . $notif->gross_amount . $serverKey);
+        if ($hashed == $notif->signature_key) {
+            if($notif->transaction_status == 'capture' || $notif->transaction_status == 'settlement'){
+                $order = midtrans::find($notif->order_id);
+                $order->update(['status' => 'Paid']);
+
+                // vippayment proses
+                if($order->status == 'Paid'){
+                    $this->fetchOrderAPI($order->packet_name, $order->user_id, $order->user_zone);
+                }
+            }
+        } 
+    }
+    public function invoiceOrder($trx_id)
+    {
+        $invoice = midtrans::find($trx_id);
+        return view('pages.invoice', compact('invoice', 'trx_id'));
+    }
+    public function midtransStatus($Request, $request) {
+        return view('pages.invoice', compact('order'));
+    }
 }
