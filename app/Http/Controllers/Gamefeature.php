@@ -25,7 +25,7 @@ class Gamefeature extends Controller
         $apiSign = '1469d60a00d32036055f77ad8bff4423';
         $type = 'services';
         $filterType = 'game';
-        $filterValue = 'Mobile Legends B';
+        $filterValue = '';
 
         return Http::asForm()->post($apiUrl, [
             'key' => $apiKey,

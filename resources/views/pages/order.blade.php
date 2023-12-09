@@ -3,12 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
     <script type="text/javascript"
         src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="SB-Mid-client-EbZpArANxHBj9XHL"></script>
-    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
-    <title>TOPUP GAMING</title>
+    <title>All in one topup services</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css"  rel="stylesheet" />
     <style>
@@ -59,9 +57,10 @@
           },
           onError: function(result){
             alert("payment failed!"); console.log(result);
+            window.location.href='/'
           },
           onClose: function(){
-            alert('Are you sure to cancel the payment?');
+            window.location.href='/'
           }
         })
       });
