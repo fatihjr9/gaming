@@ -1,6 +1,11 @@
 @extends('layout.layout')
 
 @section('content')
+<style>
+    .selected-game {
+        @apply ring-1 ring-indigo-600
+    }
+</style>
 <div class="bg-gray-900 mt-60 md:my-10 w-11/12 mx-auto rounded-xl ring-1 ring-gray-600">
     <div class="space-y-4 p-2">
         <form id="pay-form" action="{{ route('place-order') }}" method="POST" class="space-y-4 bg-gray-800 px-6 py-4 rounded-xl ring-1 ring-gray-600">
@@ -42,14 +47,14 @@
                         @if($feature['status'] === "available")
                             <div class="px-4 py-2 w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 game-container" data-game="{{ $feature['game'] }}">
                                 <div class="flex flex-col space-y-2">
-                                    <div class="flex flex-col">
-                                        <label class="w-full text-lg font-medium text-gray-900 dark:text-white truncate">{{ $feature['game'] }}</label>
-                                        <label class="w-full text-lg font-normal text-gray-900 dark:text-gray-500 truncate">{{ $feature['name'] }}</label>
+                                    <div class="flex flex-row items-start justify-between">
+                                        <div class="flex flex-col">
+                                            <label class="w-40 text-lg font-medium text-gray-900 dark:text-white truncate">{{ $feature['game'] }}</label>
+                                            <label class="w-40 text-lg font-normal text-gray-900 dark:text-gray-500 truncate">{{ $feature['name'] }}</label>
+                                        </div>
+                                        <input type="radio" id="{{ $feature['code'] }}" name="selectedCategory" value="{{ $feature['code'] }}, {{ $feature['price']['basic'] }}" class="w-4 h-4 border border-gray-300 rounded-lg p-2 mt-2 focus:outline-none focus:border-indigo-600 focus:ring focus:ring-indigo-600"/>
                                     </div>
                                     <label class="w-full text-lg font-semibold text-gray-900 dark:text-white">Rp {{ number_format($feature['price']['basic'], 0, ',', '.') }}</label>
-                                    <div class="flex flex-row items-center gap-x-2 w-full text-sm font-semibold text-gray-900 dark:text-gray-300 mt-4">
-                                        <input type="radio" id="{{ $feature['code'] }}" name="selectedCategory" value="{{ $feature['code'] }}, {{ $feature['price']['basic'] }}" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-indigo-600 focus:ring focus:ring-indigo-600"/>
-                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -105,6 +110,21 @@
                 selectedGameContainers.forEach(container => {
                     container.style.display = 'block';
                 });
+            });
+        });
+
+        var radioButtons = document.querySelectorAll('input[name="selectedCategory"]');
+        radioButtons.forEach(function (radio) {
+            radio.addEventListener("change", function () {
+                var gameContainer = this.closest('.game-container');
+
+                // Hapus kelas 'selected-game' dari semua div
+                document.querySelectorAll('.game-container').forEach(function (container) {
+                    container.classList.remove('selected-game');
+                });
+
+                // Tambahkan kelas 'selected-game' pada div yang dipilih
+                gameContainer.classList.add('selected-game');
             });
         });
     });
