@@ -35,7 +35,7 @@
             <div class="w-full h-full bg-gradient-to-l from-black/10 to-black absolute inset-0"></div>
         </div>        
     </section>
-    <main class="z-50 relative my-6" id="topup">
+    <main class="z-50 relative my-6" id="topup" >
         @yield('content')
     </main>
     <p class="text-sm text-slate-100 text-center my-4">Topup Mobile Legend 2023 - All rights reserved</p>
