@@ -27,7 +27,7 @@
             </section>
             <div class="flex flex-col space-y-2">
                 <h5 class="text-lg text-white">Pilih Layanan</h5>
-                <div class="w-full overflow-x-scroll flex flex-row gap-2 pb-2">
+                <div class="w-10 overflow-x-auto flex flex-row gap-2 pb-2">
                     @if($data && isset($data['data']) && count($data['data']) > 0)
                         @php
                             $uniqueGames = collect($data['data'])->where('status', 'available')->unique('game');

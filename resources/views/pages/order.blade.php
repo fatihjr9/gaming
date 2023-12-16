@@ -48,7 +48,7 @@
     <script type="text/javascript">
       var payButton = document.getElementById('pay-button');
       payButton.addEventListener('click', function () {
-        window.snap.pay('{{$snapToken   }}', {
+        window.snap.pay('{{$snapToken}}', {
           onSuccess: function(result){
             window.location.href='/invoice/{{$no_invoice}}'
           },
