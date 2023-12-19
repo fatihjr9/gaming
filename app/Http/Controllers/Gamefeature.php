@@ -21,8 +21,8 @@ class Gamefeature extends Controller
     // Fetch API
     private function fetchGetAPI() {
         $apiUrl = 'https://vip-reseller.co.id/api/game-feature';
-        $apiKey = 'RPPTa5cvN6uJFSiOZNuOrc1B2EWWujWuLuiygpZXsGhubm14k9puwdzHuRctP7Cr';
-        $apiSign = '1469d60a00d32036055f77ad8bff4423';
+        $apiKey = 'AfoJoAfd7t5SXkXcBeywlTEf4KLsfCRJbRTjCDKA9dWrSZBfqWXmVnpRPkywNOf5';
+        $apiSign = '39f2af1cddd0374536302a2762626065';
         $type = 'services';
         $filterType = 'game';
         $filterValue = '';
@@ -39,8 +39,8 @@ class Gamefeature extends Controller
     private function fetchOrderAPI($selectedCategory, $dataNo, $dataZone)
     {
         $apiUrl = 'https://vip-reseller.co.id/api/game-feature';
-        $apiKey = 'RPPTa5cvN6uJFSiOZNuOrc1B2EWWujWuLuiygpZXsGhubm14k9puwdzHuRctP7Cr';
-        $apiSign = '1469d60a00d32036055f77ad8bff4423';
+        $apiKey = 'AfoJoAfd7t5SXkXcBeywlTEf4KLsfCRJbRTjCDKA9dWrSZBfqWXmVnpRPkywNOf5';
+        $apiSign = '39f2af1cddd0374536302a2762626065';
         $type = 'order';
     
         return Http::asForm()->post($apiUrl, [
