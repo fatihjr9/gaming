@@ -1,9 +1,9 @@
 @extends('layout.layout')
 
 @section('content')
-<div class="px-4 md:px-16 mb-8">
+<div class="px-4 md:px-16 mb-8 mt-60 md:mt-0">
     <h5 class="text-2xl font-bold text-white">Layanan Yang tersedia</h5>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 my-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
         @if($data && isset($data['data']) && count($data['data']) > 0)
             @php
                 $uniqueGames = collect($data['data'])->where('status', 'available')->unique('game');
