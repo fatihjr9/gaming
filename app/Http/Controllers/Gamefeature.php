@@ -67,6 +67,19 @@ class Gamefeature extends Controller
         }
     }
 
+    public function getGameDetail($name)
+    {
+        $response = $this->fetchGetAPI();
+        if ($response->successful()) {
+            $data = $response->json();
+            $matchingGames = collect($data['data'])->where('game', $name)->all();
+            return view('pages.detail', compact('matchingGames', 'name', 'data'));
+        } else {
+            $error = $response->json();
+            dd($error);
+        }
+    }
+
     public function orderGameService(Request $request)
     {   
         /**
