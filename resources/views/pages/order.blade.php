@@ -44,7 +44,7 @@
         <a href="/" class="w-full py-2 bg-gray-800 mt-4 rounded-md text-center">Batalkan</a>
       </div>
     </div>
-    <p class="text-sm text-white text-center absolute bottom-5 inset-x-0">Topup Gaming 2023 - All right reserved</p>
+    <p class="text-sm text-white text-center absolute bottom-5 inset-x-0">DarwinStore 2023 - All right reserved</p>
     <script type="text/javascript">
       var payButton = document.getElementById('pay-button');
       payButton.addEventListener('click', function () {

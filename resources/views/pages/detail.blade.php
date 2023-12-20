@@ -1,11 +1,43 @@
-@extends('layout.layout')
-@section('content')
-    <div class="flex flex-col px-4 md:px-16 mb-8 mt-60 md:mt-0">
-        <h5>{{ $name }}</h5>
-        <form id="pay-form" action="{{ route('place-order') }}" method="POST" class="space-y-4 bg-gray-800 px-6 py-4 rounded-xl ring-1 ring-gray-600">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Topup {{ $name }}</title>
+    @vite('resources/css/app.css')
+</head>
+<body>
+    <div class="absolute inset-0 z-0 md:relative w-full pb-[18rem] md:pb-[36rem]">
+        <video class="absolute w-full h-full object-cover" autoplay loop muted playsinline>
+          <source src="{{ asset('/mlbb.mp4') }}" type="video/mp4">
+        </video>
+        <div class="w-full h-full bg-gradient-to-b from-black/10 to-black absolute inset-0"></div>
+        <div class="w-full h-full bg-gradient-to-l from-black/10 to-black absolute inset-0"></div>
+    </div>  
+    <div class="flex flex-col md:flex-row items-start justify-between px-4 md:px-16 z-20 relative gap-6 mt-10 md:-mt-[32rem] mb-10">
+        {{-- card --}}
+        <div class="flex flex-col space-y-4 w-full md:w-96">
+            <div class="bg-gray-900 ring-1 ring-gray-700 w-full rounded-lg h-fit">
+                <img class="rounded-lg h-24 object-cover bg-center w-24 mx-auto -mt-6" src="https://images.unsplash.com/photo-1604076913837-52ab5629fba9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFic3RyYWN0fGVufDB8fDB8fHww" alt="">
+                <div class="flex flex-col p-2.5">
+                    <div class="mb-2">
+                        <h5 class="text-lg font-semibold text-white truncate">{{ $name }}</h5>
+                        <p class="text-base text-gray-500">Proses Top Up {{ $name }} Otomatis Selama 24 Jam</p>
+                    </div>
+                    <a href="/" class="w-full ring-1 ring-gray-500 text-gray-500 py-2 rounded-lg text-center px-2.5 hover:bg-indigo-600 transition-all hover:ring-indigo-600 hover:text-white">Kembali</a>
+                </div>
+            </div>
+            <div class="hidden md:block bg-gray-900 ring-1 ring-gray-700 w-full md:w-80 rounded-lg h-fit p-2.5">
+                <h5 class="text-lg font-semibold text-white">Pembayaran menggunakan</h5>
+                <img class="w-24 my-4" src="{{ asset('/Midtrans.svg') }}" alt="">
+            </div>
+        </div>
+        {{-- content --}}
+        <form id="pay-form" action="{{ route('place-order') }}" method="POST" class="space-y-4 bg-gray-800 px-6 py-4 rounded-xl ring-1 ring-gray-600 h-fit w-full">
             @csrf
             <section class="space-y-2">
-                <h5 class="text-white text-lg">Masukkan data</h5>
+                <h5 class="text-white text-lg font-semibold">Masukkan data</h5>
                 <!-- Input -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div class="flex w-full">
@@ -19,7 +51,8 @@
                     <input type="number" name="zone" placeholder="Masukkan Zone" class="p-2 bg-gray-900 text-white border  border-indigo-600 rounded-md">
                 </div>
             </section>
-            <section class="grid grid-cols-2 md:grid-cols-4 items-start gap-4 text-sm text-gray-900">
+            <h5 class="text-white text-lg font-semibold">Pilih Layanan</h5>
+            <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-start gap-4 text-sm text-gray-900">
                 @foreach ($matchingGames as $game)
                     @if($game['status'] === "available")
                         <div class="px-4 py-2 w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 game-container" data-game="{{ $game['game'] }}">
@@ -74,4 +107,5 @@
             });
         });
     </script>
-@endsection
+</body>
+</html>
